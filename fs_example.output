@@ -1,0 +1,66 @@
+
+FS Example (Fuzzy Set Relation Composition)
+Brihat Ratna Bajracharya
+19/075
+---------
+
+Set Speed
+{ (fast, 0.6), (medium, 0.8), (spin, 0.9) }
+
+Set Pitch
+{ (good, 0.4), (fair, 0.5), (rough, 0.2) }
+
+Set Run
+{ (low, 0.9), (avg, 1.0), (high, 0.7) }
+
+Relation Speed -> Pitch
+{ 
+ { (fast, 0.6), (good, 0.4) }, 
+ { (fast, 0.6), (fair, 0.5) }, 
+ { (fast, 0.6), (rough, 0.2) }, 
+ { (medium, 0.8), (good, 0.4) }, 
+ { (medium, 0.8), (fair, 0.5) }, 
+ { (medium, 0.8), (rough, 0.2) }, 
+ { (spin, 0.9), (good, 0.4) }, 
+ { (spin, 0.9), (fair, 0.5) }, 
+ { (spin, 0.9), (rough, 0.2) } 
+}
+
+Relation Pitch -> Run
+{ 
+ { (good, 0.4), (low, 0.9) }, 
+ { (good, 0.4), (avg, 1.0) }, 
+ { (good, 0.4), (high, 0.7) }, 
+ { (fair, 0.5), (low, 0.9) }, 
+ { (fair, 0.5), (avg, 1.0) }, 
+ { (fair, 0.5), (high, 0.7) }, 
+ { (rough, 0.2), (low, 0.9) }, 
+ { (rough, 0.2), (avg, 1.0) }, 
+ { (rough, 0.2), (high, 0.7) } 
+}
+
+Functional Value for Relation Speed -> Pitch
+[[0.4 0.5 0.2]
+ [0.4 0.5 0.2]
+ [0.4 0.5 0.2]]
+
+Functional Value for Relation Pitch -> Run
+[[0.4 0.4 0.4]
+ [0.5 0.5 0.5]
+ [0.2 0.2 0.2]]
+
+Resultant Functional Value for Relation Speed -> Run
+    based on Relation Speed -> Pitch, Pitch -> Run
+    using MIN-MAX composition algorithm
+[[0.5 0.5 0.5]
+ [0.5 0.5 0.5]
+ [0.5 0.5 0.5]]
+
+Resultant Functional Value for Relation Speed -> Run
+    based on Relation Speed -> Pitch, Pitch -> Run
+    using MIN-Product composition algorithm
+[[0.25 0.25 0.25]
+ [0.25 0.25 0.25]
+ [0.25 0.25 0.25]]
+
+DONE.
