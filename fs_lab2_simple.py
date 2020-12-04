@@ -6,92 +6,106 @@
 '''
 
 from decimal import Decimal as D
+from fs_lab1_simple import get_union, get_intersection, is_subset
 
 
 def get_fuzzy_tuple():
     """ Takes element and value from user to form a tuple """
+
     element = input('   Enter Element: ')
     value = float(input('   Enter Membership Value (Range: [0.0, 1.0]): '))
+
     if value < 0.0 or value > 1.0:
         print("    Membership Value out of range. (Element will be discarded.")
         return
+
     return (element, value)
 
 
-def get_element(other_set, element):
-    """ returns element from other_set having same first value as element """
-    for elem in other_set:
-        if elem[0] == element[0]:
-            return elem
-    return None
+# def get_element(other_set, element):
+#     """ returns element from other_set having same first value as element """
+#
+#     for elem in other_set:
+#         if elem[0] == element[0]:
+#             return elem
+#
+#     return None
 
 
-def get_union(seta, setb):
-    """ returns union of seta and setb """
-    union_set_list = []
+# def get_union(seta, setb):
+#     """ returns union of seta and setb """
+#
+#     union_set_list = []
+#
+#     for elem in seta:
+#         union_set_list.append([*elem])
+#
+#     for elem in setb:
+#         present = False
+#
+#         if elem[0] in [e[0] for e in seta]:
+#             present = True
+#
+#         if present is True:
+#             old_element = None
+#             for element in union_set_list:
+#                 if element[0] == elem[0]:
+#                     old_element = element
+#                     union_set_list.remove(element)
+#                     break
+#             union_set_list.append([elem[0], max(old_element[1], elem[1])])
+#
+#         else:
+#             union_set_list.append([*elem])
+#
+#     union_set = set()
+#     for elem in union_set_list:
+#         union_set.add(tuple(elem))
+#
+#     return union_set
 
-    for elem in seta:
-        union_set_list.append([*elem])
 
-    for elem in setb:
-        present = False
-        if elem[0] in [e[0] for e in seta]:
-            present = True
-        if present is True:
-            old_element = None
-            for element in union_set_list:
-                if element[0] == elem[0]:
-                    old_element = element
-                    union_set_list.remove(element)
-                    break
-            union_set_list.append([elem[0], max(old_element[1], elem[1])])
-        else:
-            union_set_list.append([*elem])
-
-    union_set = set()
-    for elem in union_set_list:
-        union_set.add(tuple(elem))
-
-    return union_set
-
-
-def get_intersection(seta, setb):
-    """ returns intersection of seta and setb """
-
-    intersection_set_list = []
-
-    for elem in seta:
-        intersection_set_list.append([*elem])
-
-    for elem in setb:
-        present = False
-        if elem[0] in [e[0] for e in intersection_set_list]:
-            present = True
-        if present is True:
-            old_element = None
-            for element in intersection_set_list:
-                if element[0] == elem[0]:
-                    old_element = element
-                    intersection_set_list.remove(element)
-                    break
-            intersection_set_list.append([elem[0],
-                                          min(old_element[1], elem[1])])
-        else:
-            intersection_set_list.append([elem[0], 0.0])
-
-    for elem in intersection_set_list:
-        if elem[0] not in [e[0] for e in setb]:
-            elem[1] = 0
-
-    intersection_set = set()
-    for elem in intersection_set_list:
-        intersection_set.add(tuple(elem))
-
-    return intersection_set
+# def get_intersection(seta, setb):
+#     """ returns intersection of seta and setb """
+#
+#     intersection_set_list = []
+#
+#     for elem in seta:
+#         intersection_set_list.append([*elem])
+#
+#     for elem in setb:
+#         present = False
+#         if elem[0] in [e[0] for e in intersection_set_list]:
+#             present = True
+#
+#         if present is True:
+#             old_element = None
+#             for element in intersection_set_list:
+#                 if element[0] == elem[0]:
+#                     old_element = element
+#                     intersection_set_list.remove(element)
+#                     break
+#
+#             intersection_set_list.append([elem[0],
+#                                           min(old_element[1], elem[1])])
+#
+#         else:
+#             intersection_set_list.append([elem[0], 0.0])
+#
+#     for elem in intersection_set_list:
+#         if elem[0] not in [e[0] for e in setb]:
+#             elem[1] = 0
+#
+#     intersection_set = set()
+#     for elem in intersection_set_list:
+#         intersection_set.add(tuple(elem))
+#
+#     return intersection_set
 
 
 def get_complement(seta):
     """ returns complement of a set """
+
     complement_set = set()
 
     for elem in seta:
@@ -101,24 +115,27 @@ def get_complement(seta):
     return complement_set
 
 
-def is_subset(seta, setb):
-    """ returns if seta is subset of setb """
-    res = True
-
-    for elema in seta:
-        all_element_setb = [elem[0] for elem in setb]
-        if elema[0] not in all_element_setb:
-            res = False
-        else:
-            corresponding_element = get_element(setb, elema)
-            if elema[1] > corresponding_element[1]:
-                res = False
-
-    return res
+# def is_subset(seta, setb):
+#     """ returns if seta is subset of setb """
+#
+#     res = True
+#
+#     for elema in seta:
+#         all_element_setb = [elem[0] for elem in setb]
+#         if elema[0] not in all_element_setb:
+#             res = False
+#
+#         else:
+#             corresponding_element = get_element(setb, elema)
+#             if elema[1] > corresponding_element[1]:
+#                 res = False
+#
+#     return res
 
 
 def get_alpha_cut_set(seta, alpha=1.0):
     """ returns alpha cut set of given set (default alpha value = 1.0) """
+
     res = set()
     for elem in seta:
         if elem[1] >= alpha:
@@ -181,7 +198,7 @@ def main():
     is_setb_subset_of_seta = is_subset(set_B, set_A)
     print(" Set B subset of set A: " + str(is_setb_subset_of_seta) + "\n")
 
-    alpha = 0.5
+    alpha = 0.5  # default
     alpha_cut_value = float(input((" Enter Alpha Cut Value "
                                    "(Range: [0.0, 1.0]): ")))
     if (alpha_cut_value < 0.0 or alpha_cut_value > 1.0):
